@@ -6,7 +6,7 @@ module ErrorPage
 
     Default_options = {
       :path => 'views',
-      :render_template => true,
+      :render_layout => true,
       :layout => :layout
     }
     
@@ -20,9 +20,13 @@ module ErrorPage
         layout_path = File.join(@options[:path],
                                 "#{@options[:layout]}.#{key}")
         template_path = File.join(@options[:path], "#{page}.#{key}")
-        layout = compile(layout_path)
         template = compile(template_path)
-        layout.render{ template.render }
+        if @options[:render_layout]
+          layout = compile(layout_path)
+          layout.render{ template.render }
+        else
+          template.render
+        end
       end
     end
 
