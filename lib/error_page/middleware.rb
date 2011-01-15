@@ -15,11 +15,11 @@ module ErrorPage
       code, headers, body = begin
                               @app.call(env)
                             rescue 
-                              [500, {}, nil]
+                              [500, nil, nil]
                             end
       if (500..599).include? code
         body = @renderer.instance_eval(&@block)
-        Rack::ContentLength.new(Rack::ContentType.new(lambda{|env| [code, headers, body] })).call({})
+        Rack::ContentLength.new(Rack::ContentType.new(lambda{|env| [code, {}, body] })).call({})
       else
         [code, headers, body]
       end
