@@ -14,7 +14,7 @@ module ErrorPage
     def call(env)
       code, headers, body = begin
                               @app.call(env)
-                            rescue 
+                            rescue StandardError, LoadError, SyntaxError
                               [500, nil, nil]
                             end
       if (500..599).include? code
