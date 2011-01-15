@@ -7,6 +7,10 @@ end
 
 gemspec = eval(File.read(Dir["*.gemspec"].first))
 
+desc "Copy contents of the gem to directory. Usage: rake copy[/path]"
+task :copy, :path do |t, args|
+  system "for i in $(git ls-files); do cp -r $i #{args.path}; done"
+end
 
 desc "Validate the gemspec"
 task :gemspec do
