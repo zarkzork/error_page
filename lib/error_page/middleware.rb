@@ -18,7 +18,7 @@ module ErrorPage
                               [500, {}, nil]
                             end
       if (500..599).include? code
-        body = @renderer.instance_eval &@block
+        body = @renderer.instance_eval(&@block)
         Rack::ContentLength.new(Rack::ContentType.new(lambda{|env| [code, headers, body] })).call({})
       else
         [code, headers, body]
