@@ -13,8 +13,8 @@ module ErrorPage
     
     def call(env)
       code, headers, body = begin
-                              @app.call
-                            rescue
+                              @app.call(env)
+                            rescue 
                               [500, {}, nil]
                             end
       if (500..599).include? code
