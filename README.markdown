@@ -33,6 +33,6 @@ end
 
 Possible options:
 
-- @:path@
-- @:render_layout@
-- @:layout@
+- :path
+- :render_layout
+- :layout
