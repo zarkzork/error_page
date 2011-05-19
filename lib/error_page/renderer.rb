@@ -17,10 +17,14 @@ module ErrorPage
 
     Tilt.mappings.each_key do |key|
       define_method(key.to_sym) do |page|
-        layout_path = File.join(@options[:path],
-                                "#{@options[:layout]}.#{key}")
-        template_path = File.join(@options[:path], "#{page}.#{key}")
+        opt_path = @options[:path]
+        layout_name =  "#{@options[:layout]}.#{key}"
+        file_name = "#{page}.#{key}"
+        
+        layout_path = File.join(opt_path, layout_name)
+        template_path = File.join(opt_path, file_name)
         template = compile(template_path)
+
         if @options[:render_layout]
           layout = compile(layout_path)
           layout.render{ template.render }
@@ -30,14 +34,14 @@ module ErrorPage
       end
     end
 
+    def set(key, value)
+      @options[key] = value
+    end
+
     private
 
     def compile(path)
       @cache.fetch(path) { Tilt.new(path)}
-    end
-
-    def set(key, value)
-      @options[key] = value
     end
     
   end
