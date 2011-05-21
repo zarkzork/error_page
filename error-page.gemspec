@@ -1,7 +1,7 @@
 # coding: UTF-8
 
 Gem::Specification.new do |s|
-  s.name              = "ErrorPage"
+  s.name              = "error-page"
   s.version           = "0.0.1"
   s.platform          = Gem::Platform::RUBY
   s.authors           = ["Zark Zork"]
